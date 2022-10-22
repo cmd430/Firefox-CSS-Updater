@@ -20,6 +20,7 @@ namespace Firefox_CSS
         private static readonly string VersionFile = Path.Combine(FirefoxDir, "css.version");
        
         private string ProfileDir = null;
+        private string ChromeDir = null;
         private string userChromePath = null;
         private string userPath = null;
         private string CurrentVersion = "";
@@ -31,9 +32,11 @@ namespace Firefox_CSS
             string profile = Regex.Match(profilesText, @"Default=Profiles/([\w\d.-]+)").Groups[1].Value;
 
             ProfileDir = Path.Combine(ProfilesDir, profile);
-            userChromePath = Path.Combine(ProfileDir, "chrome", "userChrome.css");
+            ChromeDir = Path.Combine(ProfileDir, "chrome");
+            userChromePath = Path.Combine(ChromeDir, "userChrome.css");
             userPath = Path.Combine(ProfileDir, "user.js");
 
+            if (!Directory.Exists(ChromeDir)) Directory.CreateDirectory(ChromeDir);
             if (File.Exists(VersionFile)) CurrentVersion = File.ReadAllText(VersionFile);
 
             using (WebClient client = new WebClient())
