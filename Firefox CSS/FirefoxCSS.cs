@@ -41,7 +41,7 @@ namespace Firefox_CSS
             ProfileDir = Path.Combine(ProfilesDir, profile);
             ChromeDir = Path.Combine(ProfileDir, "chrome");
             userChromePath = Path.Combine(ChromeDir, "userChrome.css");
-            userChromePath = Path.Combine(ChromeDir, "userContent.css");
+            userContentPath = Path.Combine(ChromeDir, "userContent.css");
             userPath = Path.Combine(ProfileDir, "user.js");
 
             if (!Directory.Exists(ChromeDir)) Directory.CreateDirectory(ChromeDir);
@@ -77,7 +77,7 @@ namespace Firefox_CSS
                         string userOptions = client.DownloadString("https://raw.githubusercontent.com/cmd430/FirefoxCSS/master/dist/user.js");
 
                         File.WriteAllText(userChromePath, userChrome);
-                        File.WriteAllText(userChromePath, userContent);
+                        File.WriteAllText(userContentPath, userContent);
 
                         // Make sure to keep user changes
                         if (flowLayoutPanel_userPrefs.Controls.Count > 0)
